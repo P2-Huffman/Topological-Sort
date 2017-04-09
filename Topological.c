@@ -1,10 +1,3 @@
-/*
- * Topological.c
- *
- *  Created on: 9 de abr de 2017
- *      Author: Wagner
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 
