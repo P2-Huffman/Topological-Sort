@@ -1,3 +1,10 @@
+/*
+ * Topological.c
+ *
+ *  Created on: 9 de abr de 2017
+ *      Author: Wagner
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -146,33 +153,16 @@ void bfs(graph* G, int vert_inicial, stack* sta){
 
 int main(){
 
-  int quant_vertice, i;
+  int quant_vertice, i, vertice1, vertice2;
   scanf("%d", &quant_vertice);
 
   graph* G = create_graph(quant_vertice);
   stack* sta = create_stack();
 
-  add_vertice(G, 0, 1);
-  add_vertice(G, 0, 2);
-  add_vertice(G, 0, 14);
-  add_vertice(G, 1, 5);
-  add_vertice(G, 3, 17);
-  add_vertice(G, 4, 7);
-  add_vertice(G, 4, 8);
-  add_vertice(G, 5, 9);
-  add_vertice(G, 6, 9);
-  add_vertice(G, 7, 11);
-  add_vertice(G, 8, 9);
-  add_vertice(G, 8, 12);
-  add_vertice(G, 9, 12);
-  add_vertice(G, 9, 13);
-  add_vertice(G, 10, 13);
-  add_vertice(G, 11, 12);
-  add_vertice(G, 12, 15);
-  add_vertice(G, 13, 16);
-  add_vertice(G, 14, 15);
-  add_vertice(G, 15, 16);
-  add_vertice(G, 15, 17);
+  for(i=0 ; i<quant_vertice ; i++){
+	  scanf("%d %d",&vertice1, &vertice2);
+	  add_vertice(G, vertice1, vertice2);
+  }
 
   for(i = 0; i < quant_vertice; i ++){
     if (G->visited[i] == 0){
