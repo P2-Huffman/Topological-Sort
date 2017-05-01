@@ -112,9 +112,7 @@ void dfs(graph* G, int vert_inicial, stack* sta){
     }
 
   G->visited[vert_inicial] = 2;
-  if(aux == NULL){
-    push(sta, vert_inicial);
-  }
+  push(sta, vert_inicial);
 
 };
 
@@ -150,35 +148,6 @@ int main(){
   for(i = 0; i < quant_vertice; i ++){
     if (G->visited[i] == 0){
       dfs(G, i, sta);
-    }
-  }
-
-  for (i = 0; i < sta->quant_no; i ++){
-    topSort = pop(sta);
-    printf("%d%c", topSort, i < sta->quant_no - 1 ? ' ' : '\n');
-  }
-
-    return 0;
-}
-
-
-
-int main(){
-
-  int quant_vertice, i, vertice1, vertice2, dependencias, topSort;
-  scanf("%d %d", &quant_vertice, &dependencias);
-
-  graph* G = create_graph(quant_vertice);
-  stack* sta = create_stack();
-
-  for(i=0 ; i < dependencias ; i++){
-	  scanf("%d %d",&vertice1, &vertice2);
-	  add_vertice(G, vertice1, vertice2);
-  }
-
-  for(i = 0; i < quant_vertice; i ++){
-    if (G->visited[i] == 0){
-      bfs(G, i, sta);
     }
   }
 
