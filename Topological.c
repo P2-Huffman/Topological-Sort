@@ -26,7 +26,7 @@ struct Graph {
 graph* create_graph(int quant_vertice);
 node* create_node(int value_vertice);
 void add_vertice(graph* G, int vertice1, int vertice2);
-void bfs(graph* G, int vertice, stack* sta);
+void dfs(graph* G, int vertice, stack* sta);
 void push(stack* sta, int value);
 int pop(stack* sta);
 
@@ -99,14 +99,14 @@ void push(stack* sta, int value){
 }
 
 
-void bfs(graph* G, int vert_inicial, stack* sta){
+void dfs(graph* G, int vert_inicial, stack* sta){
 
   G->visited[vert_inicial] = 1;
   node* aux = G->Vert[vert_inicial];
 
     while (aux != NULL){
       if(G->visited[aux->dado] == 0){
-        bfs(G, aux->dado, sta);
+        dfs(G, aux->dado, sta);
       }
       aux = aux->next;
     }
@@ -130,6 +130,35 @@ int pop(stack* sta){
 
   return vertice;
 
+}
+
+
+
+int main(){
+
+  int quant_vertice, i, vertice1, vertice2, dependencias, topSort;
+  scanf("%d %d", &quant_vertice, &dependencias);
+
+  graph* G = create_graph(quant_vertice);
+  stack* sta = create_stack();
+
+  for(i=0 ; i < dependencias ; i++){
+	  scanf("%d %d",&vertice1, &vertice2);
+	  add_vertice(G, vertice1, vertice2);
+  }
+
+  for(i = 0; i < quant_vertice; i ++){
+    if (G->visited[i] == 0){
+      dfs(G, i, sta);
+    }
+  }
+
+  for (i = 0; i < sta->quant_no; i ++){
+    topSort = pop(sta);
+    printf("%d%c", topSort, i < sta->quant_no - 1 ? ' ' : '\n');
+  }
+
+    return 0;
 }
 
 
