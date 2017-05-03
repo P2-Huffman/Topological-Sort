@@ -29,6 +29,8 @@ void add_vertice(graph* G, int vertice1, int vertice2);
 void dfs(graph* G, int vertice, stack* sta);
 void push(stack* sta, int value);
 int pop(stack* sta);
+void topSort(graph* G, stack* sta, int quant_vertice);
+void createDepend(graph* G, int dependencias);
 
 //---------------------------------------------------
 
@@ -117,6 +119,36 @@ void dfs(graph* G, int vert_inicial, stack* sta){
 };
 
 
+void topSort(graph* G, stack* sta, int quant_vertice){
+
+  int i, topSort;
+
+  for(i = 0; i < quant_vertice; i ++){
+    if (G->visited[i] == 0){
+      dfs(G, i, sta);
+    }
+  }
+
+  for (i = 0; i < sta->quant_no; i ++){
+    topSort = pop(sta);
+    printf("%d%c", topSort, i < sta->quant_no - 1 ? ' ' : '\n');
+  }
+
+}
+
+
+void createDepend(graph* G, int dependencias){
+
+    int vertice1, vertice2, i;
+
+    for(i=0 ; i < dependencias ; i++){
+	    scanf("%d %d",&vertice1, &vertice2);
+	    add_vertice(G, vertice1, vertice2);
+    }
+
+}
+
+
 int pop(stack* sta){
 
   int vertice = sta->top->dado;
@@ -134,27 +166,14 @@ int pop(stack* sta){
 
 int main(){
 
-  int quant_vertice, i, vertice1, vertice2, dependencias, topSort;
+  int quant_vertice, dependencias;
   scanf("%d %d", &quant_vertice, &dependencias);
 
   graph* G = create_graph(quant_vertice);
   stack* sta = create_stack();
 
-  for(i=0 ; i < dependencias ; i++){
-	  scanf("%d %d",&vertice1, &vertice2);
-	  add_vertice(G, vertice1, vertice2);
-  }
-
-  for(i = 0; i < quant_vertice; i ++){
-    if (G->visited[i] == 0){
-      dfs(G, i, sta);
-    }
-  }
-
-  for (i = 0; i < sta->quant_no; i ++){
-    topSort = pop(sta);
-    printf("%d%c", topSort, i < sta->quant_no - 1 ? ' ' : '\n');
-  }
+  createDepend(G, dependencias);
+  topSort(G, sta, quant_vertice);
 
     return 0;
 }
